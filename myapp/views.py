@@ -133,7 +133,7 @@ def checkout_view(request):
     for item in cart.values(): total_price += Decimal(str(item['price'])) * item['quantity']
 
     if request.method == 'POST':
-        order = Order.objects.create(user=request.user, phone=request.POST.get('phone'), city=request.POST.get('city'), address=request.POST.get('address'), total_price=total_price,, is_readyShop=True, is_giveCargo=False, is_completed=False)
+        order = Order.objects.create(user=request.user, phone=request.POST.get('phone'), city=request.POST.get('city'), address=request.POST.get('address'), total_price=total_price, is_readyShop=True, is_giveCargo=False, is_completed=False)
         for product_id, item in cart.items():
             product = Product.objects.get(id=product_id)
             OrderItem.objects.create(order=order, product=product, quantity=item['quantity'], price=Decimal(str(item['price'])))
