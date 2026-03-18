@@ -17,7 +17,7 @@ class OrderItemInline(admin.TabularInline):
 # 3. Sipariş Yönetimi
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'total_price', 'created_at', 'is_completed')
+    list_display = ('id', 'user', 'total_price', 'created_at',, 'is_readyShop', 'is_giveCargo' 'is_completed')
     list_filter = ('is_completed', 'created_at')
     search_fields = ('user__username', 'user__first_name')
     inlines = [OrderItemInline]
