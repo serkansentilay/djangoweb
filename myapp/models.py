@@ -59,7 +59,9 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Müşteri")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Sipariş Tarihi")
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=True, blank=True, verbose_name="Toplam Tutar")
-    is_completed = models.BooleanField(default=False, verbose_name="Ödeme Tamamlandı mı?")
+    is_readyShop = models.BooleanField(default=False, verbose_name="Sipariş hazırlanıyor")
+    is_giveCargo = models.BooleanField(default=False, verbose_name="Kargoya verildi")
+    is_completed = models.BooleanField(default=False, verbose_name="Sipariş tamamlandı")
     
     # Sipariş anındaki iletişim bilgileri
     phone = models.CharField(max_length=15, verbose_name="Siparişteki Telefon", null=True, blank=True)
