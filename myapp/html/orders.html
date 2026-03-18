@@ -21,7 +21,15 @@
                             <td class="fw-bold">#{{ order.id }}</td>
                             <td>{{ order.created_at|date:"d F Y H:i" }}</td>
                             <td class="text-primary fw-bold">{{ order.total_price }} TL</td>
-                            <td><span class="badge rounded-pill bg-info text-dark">Hazırlanıyor</span></td>
+                            <td>
+{% if order.is_completed %}
+    <span class="badge rounded-pill bg-success">Sipariş Tamamlandı</span>
+{% elif order.is_giveCargo %}
+    <span class="badge rounded-pill bg-primary">Kargoya Verildi</span>
+{% elif order.is_readyShop %}
+    <span class="badge rounded-pill bg-warning text-dark">Sipariş Hazırlanıyor</span>
+{% endif %}
+</td>
                         </tr>
                         {% endfor %}
                     </tbody>

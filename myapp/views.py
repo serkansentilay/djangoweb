@@ -130,13 +130,18 @@ def checkout_view(request):
     if not cart: return redirect('index')
     
     total_price = Decimal('0.00')
-    for item in cart.values(): total_price += Decimal(str(item['price'])) * item['quantity']
+    for product_id, qty in cart.items():
+        try:
+            product = Product.objects.get(id=product_id)
+            total_price += Decimal(str(product.price)) * qty
+        except:
+            pass
 
     if request.method == 'POST':
-        order = Order.objects.create(user=request.user, phone=request.POST.get('phone'), city=request.POST.get('city'), address=request.POST.get('address'), total_price=total_price,, is_readyShop=True, is_giveCargo=False, is_completed=False)
-        for product_id, item in cart.items():
+        order = Order.objects.create(user=request.user, phone=request.POST.get('phone'), city=request.POST.get('city'), address=request.POST.get('address'), total_price=total_price, is_readyShop=True, is_giveCargo=False, is_completed=False)
+        for product_id, qty in cart.items():
             product = Product.objects.get(id=product_id)
-            OrderItem.objects.create(order=order, product=product, quantity=item['quantity'], price=Decimal(str(item['price'])))
+            OrderItem.objects.create(order=order, product=product, quantity=qty, price=Decimal(str(product.price)))
         request.session['cart'] = {}
         return redirect('orders')
     return render(request, 'checkout.html', {'profile': user_profile, 'total_price': total_price})
@@ -153,7 +158,7 @@ def profile_view(request):
 @login_required
 def orders(request):
     categories = Category.objects.all()
-    user_orders = Order.objects.filter(user=request.user, is_completed=True).order_by('-created_at')
+    user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'orders.html', {'categories': categories, 'orders': user_orders})
 
 @login_required

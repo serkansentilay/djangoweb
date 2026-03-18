@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-gxebfzj99(l0&n*10nucp@=t(#+@vz=u+sbsc+af+uk$g)()!k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['serkansent1lay.pythonanywhere.com']
 
 
 # Application definition
@@ -122,3 +122,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # Test aşamasında e-postaların terminale düşmesini sağlar
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+STATIC_ROOT = '/home/serkansent1lay/djangoweb/staticfiles'
+
