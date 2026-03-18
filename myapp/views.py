@@ -139,11 +139,7 @@ def checkout_view(request):
 
     if request.method == 'POST':
         order = Order.objects.create(user=request.user, phone=request.POST.get('phone'), city=request.POST.get('city'), address=request.POST.get('address'), total_price=total_price, is_readyShop=True, is_giveCargo=False, is_completed=False)
-<<<<<<< HEAD
         for product_id, qty in cart.items():
-=======
-        for product_id, item in cart.items():
->>>>>>> e16c35c (admin guncellendi)
             product = Product.objects.get(id=product_id)
             OrderItem.objects.create(order=order, product=product, quantity=qty, price=Decimal(str(product.price)))
         request.session['cart'] = {}
